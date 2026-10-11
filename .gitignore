@@ -147,3 +147,10 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+JUNK/
+aws_raw_dig.txt
+*.log
+.env
+.env.local
+rawkeys.txt
