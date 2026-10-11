@@ -83,5 +83,32 @@ ForgeAI/
 
 ---
 
+### Physical Domain Credentials
+
+Certified via **TITANS of CNC** on multi-axis CAD/CAM and high-feed cutting standards.
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center" width="50%">
+        <img src="./credentials/6074cf11-titan-2m-cad_page-0001.jpg" width="100%" alt="TITAN-2M">
+        <br />
+        <sub><b>TITAN-2M</b> (ID: <code>6074cf11</code>)</sub>
+      </td>
+      <td align="center" width="50%">
+        <img src="./credentials/6fe6283d-titan-3m-cad_page-0001.jpg" width="100%" alt="TITAN-3M">
+        <br />
+        <sub><b>TITAN-3M</b> (ID: <code>6fe6283d</code>)</sub>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p align="center">
+  <sub>C++ systems certification & entity documentation archived in <a href="./credentials/"><code>/credentials</code></a>.</sub>
+</p>
+
+---
+
 ## Licensing
 This project is licensed under the **Business Source License 1.1 (BSL 1.1)**. See [LICENSE.md](LICENSE.md) for full terms and conditions.
