@@ -110,5 +110,26 @@ Certified via **TITANS of CNC** on multi-axis CAD/CAM and high-feed cutting stan
 
 ---
 
+## 📊 Benchmark Acoustic Telemetry & Anomaly Profiles
+
+To calibrate the ESP32-S3 Radix-2 Real FFT pipeline across variable machine loads, Forge AI validates incoming I2S DMA buffers against standard industrial chatter and bearing failure signatures. 
+
+Raw acoustic streams are windowed (Blackman-Harris) and compressed into an 80-band normalized energy array (`band_1` to `band_80`), driving deterministic severity scoring and hardware interrupt thresholds.
+
+### Calibrated Anomaly Vectors (Excerpt)
+
+| ID | Case / Failure Mode | State | Severity | Primary Harmonic Concentration |
+|---|---|---|---|---|
+| **1** | Spindle Bearing Monitoring (DTect-IT) | `ANOMALY_RECORDED` | **85.5** | Low-band bearing fatigue (Bands 5–11: >50 dB) |
+| **2** | Tool Chatter Elimination | `ANOMALY_RECORDED` | **85.5** | Broad resonant chatter (Bands 6–10: >58 dB) |
+| **3** | High-Frequency Taming | `ANOMALY_RECORDED` | **85.5** | High-energy wideband saturation (Bands 1–5: >70 dB) |
+| **4** | Harmonic Speed Control (Haas) | `ANOMALY_RECORDED` | **85.5** | Rotational speed harmonics (Bands 1–3: >64 dB) |
+| **5** | Lathe Regenerative Chatter | `ANOMALY_RECORDED` | **85.5** | Mid-band regenerative vibration (Bands 3–10: >65 dB) |
+| **6** | Spindle Speed Variation (Haas SSV) | `ANOMALY_RECORDED` | **85.5** | Variable frequency modulation (Bands 5–9: >56 dB) |
+
+> Complete 80-band raw acoustic telemetry matrix archived in [`/benchmarks/cnc_spindle_telemetry_202610112002.txt`](./benchmarks/cnc_spindle_telemetry_202610112002.txt).
+
+---
+
 ## Licensing
 This project is licensed under the **Business Source License 1.1 (BSL 1.1)**. See [LICENSE.md](LICENSE.md) for full terms and conditions.
