@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies cleanly
-RUN npm ci
+RUN npm install
 
 # Install cloudflared for Cloudflare Tunnel support and sudo for package management
 USER root
