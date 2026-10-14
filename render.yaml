@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: forgeai-core
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: ADMIN_PASSWORD
+        generateValue: true
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000

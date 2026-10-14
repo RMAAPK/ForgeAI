@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: mcp-sandbox
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: ADMIN_PASSWORD
+        generateValue: true
+      - key: NODE_ENV
+        value: production

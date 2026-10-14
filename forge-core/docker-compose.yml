@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  mcp-server:
+    build: .
+    container_name: secure-mcp-sandbox
+    ports:
+      - "3000:3000"
+    # Keep stdin open for MCP JSON-RPC over stdio if needed
+    stdin_open: true
+    tty: false
+    volumes:
+      # Mount the configuration folder where allowed directories list is stored
+      - ./config:/app/config
+      # Mount the main host directory into the container (e.g. /projects).
+      # The AI is blocked from accessing subdirectories until whitelisted via the dashboard.
+      - ./projects:/projects
+      # Mount the backups directory so file backups persist on the host
+      - ./backups:/workspace/backups
+    # Read environment variables from the .env file
+    env_file:
+      - .env
+    environment:
+      # These serve as fallbacks if not defined in .env
+      - ADMIN_USERNAME=${ADMIN_USERNAME:-admin}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-supersecret}
+      - CLOUDFLARE_TOKEN=${CLOUDFLARE_TOKEN:-}
+      - MCP_API_KEY=${MCP_API_KEY:-}
+      - HF_BUCKET_URL=${HF_BUCKET_URL:-}
+      - HF_API_KEY=${HF_API_KEY:-}
+    
+    # ------------------ SECURITY CONSTRAINTS ------------------ #
+    # (Disabled to allow AI to install packages and use sudo)
+    # cap_drop:
+    #   - ALL
+    cap_add:
+      - NET_ADMIN
+    # Prevent privilege escalation (Disabled to allow sudo)
+    # security_opt:
+    #   - no-new-privileges:true
+    # Make the root filesystem read-only to prevent tampering (Disabled to allow apk add)
+    # read_only: true
+    # Provide temporary writable filesystems for Node.js if needed
+    tmpfs:
+      - /tmp
+  caddy:
+    image: caddy:latest
+    container_name: caddy-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    env_file:
+      - .env
+    depends_on:
+      - mcp-server
+
+volumes:
+  caddy_data:
+  caddy_config:

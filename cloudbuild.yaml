@@ -1,0 +1,20 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/dmcps-v3-beta', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/dmcps-v3-beta']
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args:
+  - 'run'
+  - 'deploy'
+  - 'dmcps-v3-beta'
+  - '--image'
+  - 'gcr.io/$PROJECT_ID/dmcps-v3-beta'
+  - '--region'
+  - 'us-central1'
+  - '--allow-unauthenticated'
+  - '--port'
+  - '8080'
+  - '--set-env-vars'
+  - 'PH_REDIRECT_URI=https://localhost:5000'
