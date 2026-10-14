@@ -59,6 +59,36 @@ app.use((req, res, next) => {
     next();
 });
 
+
+let latestWhatsAppQr = '';
+app.get('/whatsapp-qr', (req, res) => {
+    res.send(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="utf-8">
+          <title>Link WhatsApp — Forge AI Autopsy Bot</title>
+          <meta http-equiv="refresh" content="4">
+          <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+        </head>
+        <body style="background:#090D16; color:#E2E8F0; font-family:sans-serif; display:flex; align-items:center; justify-content:center; min-height:100vh; margin:0;">
+          <div style="background:#111827; border:1px solid rgba(235,94,40,0.3); border-radius:16px; padding:24px; text-align:center; max-width:340px; box-shadow: 0 10px 40px rgba(0,0,0,0.8);">
+            <h3 style="color:#EB5E28; margin:0 0 6px 0;">Forge AI WhatsApp Bot</h3>
+            <p style="color:#94A3B8; margin:0 0 16px 0; font-size:13px;">WhatsApp &gt; Linked Devices &gt; Link a Device</p>
+            <div style="background:white; padding:12px; border-radius:12px; display:inline-block;">
+              <canvas id="qr"></canvas>
+            </div>
+            <p style="color:#10B981; font-size:12px; margin:16px 0 0 0;">● Live Auto-Sync Active (Scan with phone)</p>
+          </div>
+          <script>
+            const qrStr = '${latestWhatsAppQr || 'https://forge.rmaa.pk'}';
+            QRCode.toCanvas(document.getElementById('qr'), qrStr, { width: 200, margin: 1 });
+          </script>
+        </body>
+        </html>
+    `);
+});
+
 app.get('/debug-logs', (req, res) => {
     res.json({
         version: "v3-no-body-parser",
