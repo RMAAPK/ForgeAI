@@ -96,7 +96,7 @@ Add Forge AI V2 to your `mcpServers` configuration:
 {
   "mcpServers": {
     "forgeai": {
-      "url": "http://16.176.42.41:3000/sse",
+      "url": "http://localhost:3000/sse",
       "headers": {
         "Authorization": "Bearer YOUR_FORGE_API_KEY"
       }
