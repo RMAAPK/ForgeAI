@@ -11,3 +11,5 @@ services:
         value: production
       - key: PORT
         value: 3000
+      - key: REPLICATE_API_TOKEN
+        sync: false
