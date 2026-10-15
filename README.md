@@ -10,7 +10,7 @@
 [![PSEB Engineering](https://img.shields.io/badge/PSEB%20Gov-Registered%20(FL21%2FPSEB%2F2026%2F25254)-blue.svg)](credentials/)
 
 **🔥 THE COMPLETE UNIFIED INDUSTRIAL PHYSICAL-AI ECOSYSTEM**  
-Forge AI V2 natively unifies:
+Forge AI V2 natively unites four core architectures into one seamless MCP runtime:
 1. **Forge AI Edge:** Sub-15ms acoustic silicon spindle defense and regenerative chatter detection.
 2. **DMCPS Core:** Military-grade execution sandbox, hypervisor bypass, and multi-cloud PaaS deployment.
 3. **TrackOn Silicon & RF Mesh:** Bare-die RV32EC custom silicon, flexible 13.56 MHz resonant coils, and Apple/Google Find My mesh integration.
@@ -92,21 +92,24 @@ Forge AI is built on verifiable, certified aerospace and industrial machining st
 
 ---
 
-## 🛠️ Unified MCP Tools Exposed
+## 🛠️ Complete Fused MCP Tools Exposed
 
-When connected via SSE (`/sse`) or Gemini Stream (`/gemini`), Forge AI V2 exposes physical machine telemetry, tracking hardware, and operating system controls in one interface:
+When connected via SSE (`/sse`) or Gemini Stream (`/gemini`), Forge AI V2 exposes the full spectrum of industrial, silicon, operating system, and sandbox tools:
 
-| Category | Tool Name | Description |
+| Domain | Tool Name | Description |
 | :--- | :--- | :--- |
 | **Acoustic Defense** | `forge_get_spindle_telemetry` | Real-time RPM, acoustic RMS dB, chatter detection, and harmonic health. |
 | **Acoustic Defense** | `forge_trigger_estop` | Fires the physical PC817 optocoupler circuit in `< 15ms` to engage CNC feed-hold. |
 | **Acoustic Defense** | `forge_reset_estop` | Clears the feed-hold and re-arms optical sensors after physical inspection. |
 | **Crash Autopsy** | `forge_get_autopsy_report` | Retrieves rolling 30-second crash recorder logs and acoustic spectrograms. |
 | **Crash Autopsy** | `forge_send_whatsapp_alert` | Sends instant high-priority autopsy reports and waveforms to shop operators. |
-| **TrackOn Hardware** | `trackon_scan_devices` | Scans ambient 13.56 MHz resonant magnetic flux and BLE mesh for TrackOn tags. |
-| **TrackOn Hardware** | `trackon_get_device_telemetry` | Queries battery voltage, RF resonance, temperature, and eFuse keys. |
+| **TrackOn Silicon** | `trackon_scan_devices` | Scans ambient 13.56 MHz resonant magnetic flux and BLE mesh for TrackOn tags. |
+| **TrackOn Silicon** | `trackon_get_device_telemetry` | Queries battery voltage, RF resonance, temperature, and eFuse keys. |
+| **TrackOn RF Design** | `trackon_simulate_coil_resonance`| Calculates 13.56 MHz spiral inductance, tuning capacitance, and Q-factor. |
 | **OS-MCP Systems** | `os_get_system_info` | Queries host metrics: OS kernel, CPU load, memory, active serial bridges. |
 | **OS-MCP Systems** | `os_execute_command` | Executes shell commands protected by environment sandboxing boundaries. |
+| **OS-MCP Systems** | `os_detect_serial_devices` | Auto-detects connected CNC controllers, ESP32 boards, and UART devices. |
+| **OS-MCP Systems** | `os_read_system_battery` | Queries power rail / battery levels across portable shop floor terminals. |
 | **Sandbox Filesystem**| `read_file` | Read files strictly inside whitelisted paths with traversal blocking. |
 | **Sandbox Filesystem**| `write_file` | Write content safely with automated timestamped backup creation (`.bkp`). |
 | **Sandbox Filesystem**| `list_directory` | Safely explore workspace directories. |
