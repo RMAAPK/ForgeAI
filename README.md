@@ -10,7 +10,11 @@
 [![PSEB Engineering](https://img.shields.io/badge/PSEB%20Gov-Registered%20(FL21%2FPSEB%2F2026%2F25254)-blue.svg)](credentials/)
 
 **🔥 THE COMPLETE UNIFIED INDUSTRIAL PHYSICAL-AI ECOSYSTEM**  
-Forge AI V2 unites **Forge AI's** sub-15ms edge acoustic silicon defense, **DMCPS's** military-grade execution sandbox and multi-cloud PaaS runtime, **TrackOn's** custom silicon & flexible resonant PCB hardware designs, and **OS-MCP's** cross-platform client daemons into one cohesive, unbreakable platform.
+Forge AI V2 natively unifies:
+1. **Forge AI Edge:** Sub-15ms acoustic silicon spindle defense and regenerative chatter detection.
+2. **DMCPS Core:** Military-grade execution sandbox, hypervisor bypass, and multi-cloud PaaS deployment.
+3. **TrackOn Silicon & RF Mesh:** Bare-die RV32EC custom silicon, flexible 13.56 MHz resonant coils, and Apple/Google Find My mesh integration.
+4. **OS-MCP Daemon Matrix:** Bare-metal operating system automation daemons across Android, iOS, Windows, Mac, and Linux.
 
 <p align="center">
   <a href="https://render.com/deploy?repo=https://github.com/RMAAPK/ForgeAI">
@@ -40,15 +44,15 @@ Forge AI V2 unites **Forge AI's** sub-15ms edge acoustic silicon defense, **DMCP
 
 ## 🏛️ Verified Engineering Credentials & Certifications
 
-Forge AI is grounded in certified, real-world aerospace & industrial CNC manufacturing:
-- **TITAN-2M Certified (CAD/CAM Aerospace Machining):** Verification ID `6074cf11`
+Forge AI is built on verifiable, certified aerospace and industrial machining standards:
+- **TITAN-2M Certified (Aerospace CAD/CAM Machining):** Verification ID `6074cf11`
 - **TITAN-3M Certified (High-Speed Multi-Axis Toolpath Dynamics):** Verification ID `6fe6283d`
 - **Government Accredited Systems Engineering:** PSEB Registration `FL21/PSEB/2026/25254` (Software & Embedded Systems Engineering).
-- Full credentials and verification dossier: [credentials/](credentials/)
+- Archived audit dossier: [credentials/](credentials/)
 
 ---
 
-## 🌟 The Complete Fused Architecture
+## 🌟 The Fused Architecture
 
 ```
  ┌────────────────────────────────────────────────────────────────────────┐
@@ -75,7 +79,9 @@ Forge AI is grounded in certified, real-world aerospace & industrial CNC manufac
  │  ├── 4. Matrix Protocol Bridge (Mautrix Puppet Integration)            │
  │  ├── 5. Replicate BYOK Engine (Llama-3-70B Deep Crash Forensics)       │
  │  ├── 6. Military-Grade Execution Sandbox (Dropped Linux Capabilities)  │
- │  └── 7. Universal Industrial MCP Gateway (SSE & Stdio Transports)      │
+ │  ├── 7. TrackOn RF Tag & Mesh Manager (Silicon eFuse & Telemetry)      │
+ │  ├── 8. OS-MCP Cross-Platform Bridge (Android, iOS, Win, Mac, Linux)   │
+ │  └── 9. Universal Industrial MCP Gateway (SSE & Stdio Transports)      │
  └────────────────────────────────────┬───────────────────────────────────┘
                                       │
         ┌─────────────────────────────┼─────────────────────────────┐
@@ -86,29 +92,33 @@ Forge AI is grounded in certified, real-world aerospace & industrial CNC manufac
 
 ---
 
-## 🛠️ Industrial MCP Tools Exposed
+## 🛠️ Unified MCP Tools Exposed
 
-When connected via SSE (`/sse`) or Gemini Stream (`/gemini`), Forge AI V2 exposes both real-time machine telemetry and hardened sandboxed filesystem tools:
+When connected via SSE (`/sse`) or Gemini Stream (`/gemini`), Forge AI V2 exposes physical machine telemetry, tracking hardware, and operating system controls in one interface:
 
-| Tool Name | Type | Description |
+| Category | Tool Name | Description |
 | :--- | :--- | :--- |
-| `forge_get_spindle_telemetry` | **Telemetry** | Returns real-time RPM, acoustic RMS dB, peak frequencies, and harmonic health status. |
-| `forge_trigger_estop` | **Safety Control** | Fires the physical PC817 optocoupler circuit in `< 15ms` to engage CNC feed-hold. |
-| `forge_reset_estop` | **Safety Control** | Clears the feed-hold and re-arms optical sensors after operator physical confirmation. |
-| `forge_get_autopsy_report` | **Black-Box** | Retrieves rolling 30-second crash recorder logs and acoustic spectrogram snapshots. |
-| `forge_send_whatsapp_alert` | **Dispatch** | Sends instant high-priority autopsy reports and waveforms to shop floor operators. |
-| `read_file` | **Sandbox** | Read content strictly inside whitelisted directories with path-traversal blocking. |
-| `write_file` | **Sandbox** | Write content safely with automated timestamped backup creation (`.bkp`). |
-| `list_directory` | **Sandbox** | Safely explore workspace directories. |
-| `run_shell_command` | **Sandbox** | Execute shell commands strictly restricted by dropped Linux kernel capabilities. |
+| **Acoustic Defense** | `forge_get_spindle_telemetry` | Real-time RPM, acoustic RMS dB, chatter detection, and harmonic health. |
+| **Acoustic Defense** | `forge_trigger_estop` | Fires the physical PC817 optocoupler circuit in `< 15ms` to engage CNC feed-hold. |
+| **Acoustic Defense** | `forge_reset_estop` | Clears the feed-hold and re-arms optical sensors after physical inspection. |
+| **Crash Autopsy** | `forge_get_autopsy_report` | Retrieves rolling 30-second crash recorder logs and acoustic spectrograms. |
+| **Crash Autopsy** | `forge_send_whatsapp_alert` | Sends instant high-priority autopsy reports and waveforms to shop operators. |
+| **TrackOn Hardware** | `trackon_scan_devices` | Scans ambient 13.56 MHz resonant magnetic flux and BLE mesh for TrackOn tags. |
+| **TrackOn Hardware** | `trackon_get_device_telemetry` | Queries battery voltage, RF resonance, temperature, and eFuse keys. |
+| **OS-MCP Systems** | `os_get_system_info` | Queries host metrics: OS kernel, CPU load, memory, active serial bridges. |
+| **OS-MCP Systems** | `os_execute_command` | Executes shell commands protected by environment sandboxing boundaries. |
+| **Sandbox Filesystem**| `read_file` | Read files strictly inside whitelisted paths with traversal blocking. |
+| **Sandbox Filesystem**| `write_file` | Write content safely with automated timestamped backup creation (`.bkp`). |
+| **Sandbox Filesystem**| `list_directory` | Safely explore workspace directories. |
+| **Sandbox Filesystem**| `run_shell_command` | Run terminal commands strictly restricted by dropped Linux kernel capabilities. |
 
 ---
 
 ## 📱 Cross-Platform OS-MCP Client Daemons (`clients/`)
 
-Forge AI natively extends to operator and technician hardware across all major operating systems:
+Forge AI natively extends to operator and technician hardware across all operating systems:
 - **Android (`clients/Android/`):** Native Android daemon interfacing with mobile sensors and notifications.
-- **iOS (`clients/iOS/`):** Web-inspect and platform hooks for mobile Apple devices.
+- **iOS (`clients/iOS/`):** Web-inspect and platform hooks for Apple mobile hardware.
 - **Linux (`clients/Linux/`):** Full kernel-level Linux daemon for industrial shop floor terminals and Raspberry Pis.
 - **Windows (`clients/Win/`):** Windows CNC host controller automation (Mach3/Mach4/NcStudio bridge).
 - **macOS (`clients/Mac/`):** Apple Silicon native daemon.
@@ -117,7 +127,6 @@ Forge AI natively extends to operator and technician hardware across all major o
 
 ## 🔬 Hardware Designs & Bare-Die Silicon (`hardware-designs/`)
 
-Originating from the TrackOn research initiative:
 - **Flexible PCB Blueprints (`hardware-designs/hardware/`):** Complete KiCad project (`TrackOn.kicad_pcb`), Archimedean resonant coil generators, and COMSOL magnetic field simulations (`comsol_coil_sim.java`).
 - **Custom Silicon RTL (`hardware-designs/hardware/rtl/`):** RV32EC bare-die core controllers, OTP eFuse security registers (`efuse_controller.v`), and lithium battery power management units (`pmu_lithium.v`).
 - **Firmware Cryptography (`hardware-designs/firmware/`):** Rotating NIST P-224 Elliptic Curve advertising protocols (`fmn_crypto.c`).
@@ -163,14 +172,14 @@ Log in with your configured `ADMIN_USERNAME` and `ADMIN_PASSWORD`.
 
 ### 3. Connect an AI Agent (Gemini / Claude Desktop / Cursor)
 Point your MCP-compatible client to the live SSE endpoint:
-👉 **https://forge.rmaa.pk/sse** (or **http://localhost:3000/sse**)
+👉 **http://localhost:3000/sse**
 
 Add to your `mcpServers` configuration:
 ```json
 {
   "mcpServers": {
     "forgeai": {
-      "url": "https://forge.rmaa.pk/sse",
+      "url": "http://localhost:3000/sse",
       "headers": {
         "Authorization": "Bearer mcp_your_token_here"
       }
@@ -185,7 +194,7 @@ Add to your `mcpServers` configuration:
 
 Forge AI V2 is a persistent backend service pre-configured for 1-click deployments on modern cloud platforms:
 
-- **Render:** 1-click deploy reading `render.yaml`. Runs live on your custom domain (e.g. `https://forge.rmaa.pk`).
+- **Render:** 1-click deploy reading `render.yaml`.
 - **Google Cloud Run:** Fully automated serverless container builds via `cloudbuild.yaml`.
 - **Railway:** Built automatically via `railway.toml` and Nixpacks.
 - **AWS EC2:** Runs backed by Caddy reverse proxy on port 3000 with dropped capabilities (`cap_drop: ALL`).
