@@ -1,40 +1,53 @@
-# Forge AI - Autonomous Acoustic Spindle Defense & Industrial MCP Network
+# Forge AI - Autonomous Industrial Machine OS & Execution Gateway
 
 [![License: BSL 1.1](https://img.shields.io/badge/License-BSL%201.1-blue.svg)](LICENSE.md)
-[![Target: ESP32-S3](https://img.shields.io/badge/Platform-ESP32--S3-red.svg)](Edge%20Firmware/)
-[![Architecture: Air--Gapped](https://img.shields.io/badge/Architecture-Air--Gapped%20DSP-emerald.svg)](Edge%20Firmware/)
-[![MCP Server: Industrial](https://img.shields.io/badge/MCP_Server-Industrial%20v2.0-blue.svg)](server.json)
-[![Status: v2_fused](https://img.shields.io/badge/Release-v2__fused-orange.svg)]()
+[![Platform: ESP32-S3](https://img.shields.io/badge/Platform-ESP32--S3-red.svg)](Edge%20Firmware/)
+[![Architecture: Air--Gapped DSP](https://img.shields.io/badge/Architecture-Air--Gapped%20DSP-emerald.svg)](Edge%20Firmware/)
+[![MCP Registry](https://img.shields.io/badge/MCP_Registry-io.github.rmaapk%2Fforgeai-blue.svg)](https://registry.modelcontextprotocol.io/)
+[![Release: v2.0 Production](https://img.shields.io/badge/Release-v2.0--Production-green.svg)]()
 
-Forge AI is an industrial-grade, air-gapped acoustic telemetry, CNC spindle defense, and secure physical-AI execution gateway. It detects tool deflection, chatter resonance, and imminent tool breakage in under **15 milliseconds** using high-speed frequency partitioning on edge silicon.
+Forge AI is an industrial-grade, air-gapped acoustic telemetry, CNC spindle defense, and physical-AI execution gateway. It detects tool deflection, chatter resonance, and imminent tool breakage in under **15 milliseconds** using high-speed frequency partitioning on edge silicon.
+
+By natively uniting **Edge DSP Silicon**, **DMCPS Execution Sandboxing**, **TrackOn Resonant Tag Silicon**, and **OS-MCP Cross-Platform Daemons**, Forge AI provides a complete, unbroken operating system for autonomous machine cells.
 
 ---
 
 ## Architecture Overview
 
 ```
- [Spindle Micro-Vibrations & Acoustics]       [13.56 MHz Resonant Flux]
-             │ (48 kHz / 24-bit I2S DMA)                   │
-             ▼                                             ▼
-   [ESP32-S3 Dual-Core DSP Engine]               [TrackOn Custom Silicon]
-      ├── Core 0: Continuous I2S DMA Ingestion      ├── RV32EC Bare-Die Core
-      └── Core 1: Radix-2 Real FFT + 80-Band DSP    └── 10x10mm Flexible Coil
-             │
-             ├──► [Optocoupler E-Stop] (< 15ms Hardware Feed Hold / Emergency Trip)
-             └──► [Encrypted MicroSD Outbox / Local USB Serial Bridge]
-                        │
-                        ▼ (Local Serial Stream / Sneakernet)
-           [Forge AI V2 Core Daemon & Industrial MCP Server]
-              ├── 1. Edge Serial Hardware Bridge (Auto-detects USB ports)
-              ├── 2. Black-Box Autopsy Engine (Offline Store-and-Forward)
-              ├── 3. Multi-Channel Dispatcher (Instant WhatsApp / Telegram Alerts)
-              ├── 4. Military-Grade Execution Sandbox (Dropped Linux Capabilities)
-              └── 5. Universal MCP Server (Exposing 12+ Machine Telemetry & OS Tools)
-                        │
-                        ├──────────────────────────┐
-                        ▼                          ▼
-           [Supabase / DuckDB Telemetry Core]   [AI Agents: Gemini / Claude / Cursor]
-           (80-Band Continuous Vector Matrix)   (Real-Time Spindle Monitoring & Safety Control)
+ ┌────────────────────────────────────────────────────────────────────────┐
+ │                    PHYSICAL HARDWARE & SENSOR LAYER                    │
+ │                                                                        │
+ │  [Spindle Micro-Acoustics & Vibration]      [13.56 MHz Resonant Tag]   │
+ │             │ (I2S DMA 48 kHz / 24-bit)                 │              │
+ │             ▼                                           ▼              │
+ │   [ESP32-S3 Dual-Core DSP Engine]              [TrackOn Custom Silicon] │
+ │      ├── Core 0: Continuous DMA Ingestion         ├── RV32EC Bare-Die  │
+ │      └── Core 1: Radix-2 Real FFT (80 Bins)       └── 10x10mm Flexible │
+ │             │                                         Coil & PMU       │
+ │             ├──► [PC817 Optocoupler] (< 15ms Hardware Feed Hold)       │
+ │             └──► [Encrypted MicroSD Outbox / Local USB Serial Bridge]  │
+ └────────────────────────────────────┬───────────────────────────────────┘
+                                      │
+                                      ▼
+ ┌────────────────────────────────────────────────────────────────────────┐
+ │                     FORGE AI V2 CORE DAEMON                            │
+ │                                                                        │
+ │  ├── 1. Edge Serial Hardware Bridge (Auto-detects /dev/ttyACM* / USB*) │
+ │  ├── 2. Black-Box Autopsy Engine (Offline DuckDB Store-and-Forward)    │
+ │  ├── 3. Multi-Channel Dispatcher (Instant WhatsApp / Telegram Alerts)  │
+ │  ├── 4. Matrix Protocol Bridge (Mautrix Multi-Platform Puppets)        │
+ │  ├── 5. Replicate BYOK Engine (Llama-3-70B Deep Crash Forensics)       │
+ │  ├── 6. Military-Grade Execution Sandbox (Dropped Linux Capabilities)  │
+ │  ├── 7. TrackOn RF Tag & Mesh Manager (Silicon eFuse & Telemetry)      │
+ │  ├── 8. OS-MCP Cross-Platform Bridge (Android, iOS, Win, Mac, Linux)   │
+ │  └── 9. Universal Industrial MCP Gateway (SSE & Stdio Transports)      │
+ └────────────────────────────────────┬───────────────────────────────────┘
+                                      │
+        ┌─────────────────────────────┼─────────────────────────────┐
+        ▼                             ▼                             ▼
+[Gemini / Claude / Cursor]  [Shop Floor WhatsApp]       [OS-MCP Client Daemons]
+(Real-Time Spindle Control)  (Instant Crash Autopsy)    (Android, iOS, Win, Mac, Linux)
 ```
 
 ---
@@ -48,9 +61,10 @@ Forge AI is an industrial-grade, air-gapped acoustic telemetry, CNC spindle defe
   - **Kinematic & Unbalance Zone (1 Hz - 500 Hz):** 10 linear bins (49.9 Hz/bin) isolating spindle runout, pulley wear, and bearing defect harmonics.
   - **Chatter & Breakage Zone (500 Hz - 20,000 Hz):** 70 linear bins (278.57 Hz/bin) capturing regenerative chatter squeal and micro-chipping acoustic emission.
 - **Direct Hardware Interception:** Open-collector optocoupler circuit triggered in `< 15ms` for deterministic feed hold before catastrophic bit failure.
-- **Cryptographic 7-Day Sneakernet:** Ed25519 signature verification (`lease.sig`) and monotonic runtime counter enforcement.
+- **Air-Gapped Tokenized Billing & `data.dat` Sync:** Offline pay-per-second machining license enforced via encrypted `data.dat` containers on standard MicroSD. The ESP32-S3 uses acoustic load classification to deduct pre-authorized cutting seconds strictly during active material removal (idle time is 100% free).
+- **Self-Improving Acoustic Feedback Loop:** When the user syncs `data.dat` on any connected workstation, previous 80-band acoustic float anomaly logs are reconciled, and updated calibration weights tailored to the specific spindle/gantry harmonics are patched back into the encrypted container.
 
-### 2. Industrial MCP Server (`src/` & `server.json`)
+### 2. Industrial MCP Server Engine (`src/` & `server.json`)
 Native Model Context Protocol gateway allowing AI agents (like Gemini, Claude, Cursor) to monitor spindle harmonics, trigger emergency feed-holds, and run sandboxed diagnostics:
 - **`forge_get_spindle_telemetry`**: Real-time RPM, acoustic RMS dB, peak frequency, and harmonic health.
 - **`forge_trigger_estop`**: Optical feed-hold trigger (<15ms) via PC817 optocoupler.
@@ -58,7 +72,9 @@ Native Model Context Protocol gateway allowing AI agents (like Gemini, Claude, C
 - **`forge_get_autopsy_report`**: Rolling 30-second black-box crash recorder logs & spectrograms.
 - **`forge_send_whatsapp_alert`**: Instant high-priority dispatch of autopsies to WhatsApp.
 - **`trackon_scan_devices`** & **`trackon_get_device_telemetry`**: 13.56 MHz resonant flux and BLE tag telemetry.
+- **`trackon_simulate_coil_resonance`**: Calculates Archimedean spiral inductance ($\mu\text{H}$) & matching capacitance ($\text{pF}$).
 - **`os_get_system_info`** & **`os_detect_serial_devices`**: Host platform metrics and attached CNC serial bus scanning.
+- **`os_read_system_battery`** & **`os_execute_command`**: Power rail monitoring and sandboxed command execution.
 - **`read_file`**, **`write_file`**, **`list_directory`**, **`run_shell_command`**: Sandboxed workspace tools with directory traversal protection.
 
 ### 3. [Cross-Platform OS Daemons](clients/)
@@ -70,10 +86,16 @@ Native automation daemons interfacing with host platforms across the shop floor:
 
 ### 4. [Hardware Designs & Flexible Silicon](hardware-designs/)
 - `hardware-designs/hardware/`: Complete KiCad PCB layout (`TrackOn.kicad_pcb`), Archimedean resonant coil generator, and COMSOL magnetic field simulations.
-- `hardware-designs/hardware/rtl/`: RV32EC bare-die core controllers, OTP eFuse security registers, and lithium PMU.
-- `hardware-designs/firmware/`: Rotating NIST P-224 Elliptic Curve mesh cryptography.
+- `hardware-designs/hardware/rtl/`: RV32EC bare-die core controllers, OTP eFuse security registers (`efuse_controller.v`), and lithium PMU (`pmu_lithium.v`).
+- `hardware-designs/firmware/`: Rotating NIST P-224 Elliptic Curve mesh cryptography (`fmn_crypto.c`).
+- `hardware-designs/backend/`: Supabase tracking schema migrations.
 
-### 5. Telemetry Client (`forge_client.py`)
+### 5. Multi-Channel & Autopsy Dispatchers
+- `src/whatsapp_dispatcher.ts`: Offline store-and-forward queueing engine for high-priority incident notifications.
+- `src/matrix_bridge.ts`: Decentralized Mautrix puppet gateway bridging WhatsApp, Telegram, Discord, and Signal.
+- `src/replicate_agent.ts`: BYOK Llama-3-70B deep forensics engine analyzing spindle harmonics and workpiece material physics.
+
+### 6. Telemetry Client (`forge_client.py`)
 - Standard client interface for querying the 80-band acoustic telemetry matrix from cloud/local storage.
 - Zero-leak credential parsing via environment variables.
 
@@ -117,7 +139,8 @@ ForgeAI/
 │   ├── stdio.ts                 # Local stdio CLI runner for Cursor & Claude
 │   ├── edge_serial_bridge.ts    # Auto-detects ESP32-S3 USB serial stream
 │   ├── whatsapp_dispatcher.ts   # Offline-first black-box crash dispatcher
-│   └── matrix_bridge.ts         # Multi-channel Mautrix puppet gateway
+│   ├── matrix_bridge.ts         # Multi-channel Mautrix puppet gateway
+│   └── replicate_agent.ts       # BYOK Llama-3-70B forensic autopsy engine
 ├── clients/                      # Cross-Platform OS-MCP Client Daemons
 │   ├── Linux/                   # Industrial shop floor terminal daemon
 │   ├── Win/                     # CNC controller automation bridge (Mach3/NcStudio)
@@ -127,11 +150,21 @@ ForgeAI/
 │   ├── hardware/                # KiCad PCB, Archimedean coils, COMSOL simulations
 │   ├── hardware/rtl/            # RV32EC silicon RTL & lithium PMU
 │   └── firmware/                # NIST P-224 rotating BLE mesh crypto
+├── credentials/                  # Titan CAD/CAM & Engineering Accreditations
+│   ├── 6074cf11-titan-2m-cad_page-0001.jpg
+│   ├── 6fe6283d-titan-3m-cad_page-0001.jpg
+│   └── Founder Certificates.pdf
+├── benchmarks/                   # Industrial Spindle Telemetry Benchmark Profiles
+│   ├── cnc_spindle_telemetry_202610112002.txt
+│   └── README.md
 ├── forge_client.py               # Enterprise Supabase/telemetry reader client
 ├── server.json                   # Official Global MCP Registry Manifest
 ├── Dockerfile                    # Kernel-sandboxed container (cap_drop: ALL)
 ├── docker-compose.yml            # Multi-container orchestration stack
 ├── render.yaml                   # 1-click cloud deployment spec
+├── cloudbuild.yaml               # Google Cloud Run deployment spec
+├── railway.toml & Procfile       # Railway & PaaS orchestration specs
+├── vercel.json                   # Edge testing specification
 ├── .env.example                  # Sanitized environment template (no secrets)
 ├── .gitignore                    # Enterprise gitignore rules
 ├── LICENSE.md                    # Business Source License (BSL 1.1)

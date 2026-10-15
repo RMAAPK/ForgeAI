@@ -1,3 +1,4 @@
+import { DataDatEngine, MachineCalibrationPayload } from './data_dat_engine.js';
 import { ListToolsRequestSchema, CallToolRequestSchema } from "@modelcontextprotocol/sdk/types.js";
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import * as fs from 'fs/promises';
@@ -72,6 +73,34 @@ export class ForgeMcpManager {
 
     public registerTools(server: Server) {
         return [
+                        // ==========================================
+            // 4. DATA.DAT AIR-GAPPED BILLING & SYNC
+            // ==========================================
+            {
+                name: "forge_pack_dat_container",
+                description: "Generate a cryptographically encrypted data.dat container for the MicroSD card with pre-authorized cutting seconds.",
+                inputSchema: {
+                    type: "object",
+                    properties: {
+                        machineId: { type: "string", description: "Machine Name or ID" },
+                        chipMacSha256: { type: "string", description: "SHA256 of ESP32-S3 hardware MAC / eFuse UID" },
+                        cuttingSecondsToAuthorize: { type: "number", description: "Number of machining seconds to pre-authorize (USD tokenized)" }
+                    },
+                    required: ["machineId", "chipMacSha256", "cuttingSecondsToAuthorize"]
+                }
+            },
+            {
+                name: "forge_unpack_dat_container",
+                description: "Inspect, decrypt, and reconcile consumed cutting seconds and 80-band anomaly floats from a customer data.dat file.",
+                inputSchema: {
+                    type: "object",
+                    properties: {
+                        containerJson: { type: "string", description: "Raw JSON string of data.dat container" },
+                        chipMacSha256: { type: "string", description: "SHA256 of ESP32-S3 hardware MAC / eFuse UID" }
+                    },
+                    required: ["containerJson", "chipMacSha256"]
+                }
+            },
             // ==========================================
             // 1. FORGE AI ACOUSTIC SILICON & FEED-HOLD
             // ==========================================
@@ -185,6 +214,42 @@ export class ForgeMcpManager {
 
     public async handleCallTool(name: string, args: any) {
         switch (name) {
+                        case "forge_pack_dat_container": {
+                const datEngine = new DataDatEngine();
+                const payload: MachineCalibrationPayload = {
+                    machineId: args.machineId,
+                    chipMacSha256: args.chipMacSha256,
+                    preAuthCuttingSeconds: args.cuttingSecondsToAuthorize,
+                    consumedCuttingSeconds: 0,
+                    anomalyWeights80Band: DataDatEngine.generateDefault80BandWeights(),
+                    timestamp: Date.now(),
+                    nonce: Math.floor(Math.random() * 1000000)
+                };
+                const container = datEngine.packContainer(payload);
+                return {
+                    content: [{
+                        type: "text",
+                        text: JSON.stringify(container, null, 2)
+                    }]
+                };
+            }
+
+            case "forge_unpack_dat_container": {
+                const datEngine = new DataDatEngine();
+                try {
+                    const parsedContainer = JSON.parse(args.containerJson);
+                    const unpacked = datEngine.unpackContainer(parsedContainer, args.chipMacSha256);
+                    return {
+                        content: [{
+                            type: "text",
+                            text: JSON.stringify(unpacked, null, 2)
+                        }]
+                    };
+                } catch (e: any) {
+                    return { isError: true, content: [{ type: "text", text: "Decryption or AEAD authentication tag failed: " + (e.message || "Corrupted data") }] };
+                }
+            }
+
             case "forge_get_spindle_telemetry":
                 return { content: [{ type: "text", text: JSON.stringify(this.latestTelemetry, null, 2) }] };
 
