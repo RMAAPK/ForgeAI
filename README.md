@@ -5,9 +5,12 @@
 [![MCP Server: Industrial SSE](https://img.shields.io/badge/MCP_Server-Industrial%20v2.0-emerald.svg)](forge-core/)
 [![Status: Production](https://img.shields.io/badge/Release-V2%20Fused-orange.svg)]()
 [![MCP Registry](https://img.shields.io/badge/MCP_Registry-io.github.thealidev/dmcps-success)](https://registry.modelcontextprotocol.io/)
+[![TITAN-2M Verified](https://img.shields.io/badge/TITAN--2M-Verified%20(6074cf11)-green.svg)](credentials/)
+[![TITAN-3M Verified](https://img.shields.io/badge/TITAN--3M-Verified%20(6fe6283d)-green.svg)](credentials/)
+[![PSEB Engineering](https://img.shields.io/badge/PSEB%20Gov-Registered%20(FL21%2FPSEB%2F2026%2F25254)-blue.svg)](credentials/)
 
-**🔥 THE CONTINUATION & COMPLETE EVOLUTION OF DMCPS INTO FORGE AI!**  
-Forge AI V2 merges the world-class execution sandboxing, PaaS hypervisor bypass, and multi-cloud resilience of **DMCPS** with **Forge AI's** sub-15ms edge acoustic silicon defense. Built for high-noise manufacturing floors and machine shops, it detects tool deflection, chatter resonance, and imminent tool breakage in under **15 milliseconds** using high-speed frequency partitioning on edge silicon.
+**🔥 THE COMPLETE UNIFIED INDUSTRIAL PHYSICAL-AI ECOSYSTEM**  
+Forge AI V2 unites **Forge AI's** sub-15ms edge acoustic silicon defense, **DMCPS's** military-grade execution sandbox and multi-cloud PaaS runtime, **TrackOn's** custom silicon & flexible resonant PCB hardware designs, and **OS-MCP's** cross-platform client daemons into one cohesive, unbreakable platform.
 
 <p align="center">
   <a href="https://render.com/deploy?repo=https://github.com/RMAAPK/ForgeAI">
@@ -27,25 +30,39 @@ Forge AI V2 merges the world-class execution sandboxing, PaaS hypervisor bypass,
   <a href="https://www.producthunt.com/products/dmcps/reviews/new?utm_source=badge-product_review&utm_medium=badge&utm_source=badge-dmcps" target="_blank">
     <img src="https://api.producthunt.com/widgets/embed-image/v1/product_review.svg?product_id=1333432&theme=neutral" alt="Forge AI / DMCPS Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" />
   </a>
+  &nbsp;&nbsp;
+  <a href="https://www.producthunt.com/products/trackon?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-trackon" target="_blank" rel="noopener noreferrer">
+    <img alt="TrackOn - The 10mm open-source silicon tracking tag. | Product Hunt" width="250" height="54" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1269412&theme=neutral&t=1791122010420">
+  </a>
 </p>
 
 ---
 
-## 🌟 The V2 Architecture & Core Pillars
+## 🏛️ Verified Engineering Credentials & Certifications
+
+Forge AI is grounded in certified, real-world aerospace & industrial CNC manufacturing:
+- **TITAN-2M Certified (CAD/CAM Aerospace Machining):** Verification ID `6074cf11`
+- **TITAN-3M Certified (High-Speed Multi-Axis Toolpath Dynamics):** Verification ID `6fe6283d`
+- **Government Accredited Systems Engineering:** PSEB Registration `FL21/PSEB/2026/25254` (Software & Embedded Systems Engineering).
+- Full credentials and verification dossier: [credentials/](credentials/)
+
+---
+
+## 🌟 The Complete Fused Architecture
 
 ```
  ┌────────────────────────────────────────────────────────────────────────┐
- │                    PHYSICAL CNC MACHINE CELL                           │
+ │                    PHYSICAL HARDWARE & SENSOR CELL                     │
  │                                                                        │
- │  [Spindle Micro-Acoustics]                                             │
- │             │                                                          │
- │             ▼ (I2S DMA Ping-Pong Ring Buffer, 48 kHz / 24-bit)         │
- │   [ESP32-S3 Dual-Core DSP Engine]                                      │
- │      ├── Core 0: Continuous 48 kHz I2S DMA Audio Ingestion             │
- │      └── Core 1: Radix-2 Real FFT + 80-Band Partition Accumulator      │
- │             │                                                          │
- │             ├──► [Optocoupler E-Stop] (< 15ms Hardware Feed Hold)      │
- │             └──► [Encrypted MicroSD Outbox / Local USB Serial Bridge]  │
+ │  [Spindle Micro-Acoustics & Vibration]      [13.56 MHz Resonant Tag]   │
+ │             │ (I2S DMA 48 kHz / 24-bit)                 │              │
+ │             ▼                                           ▼              │
+ │   [ESP32-S3 Dual-Core DSP Engine]              [TrackOn Custom Silicon] │
+ │      ├── Core 0: Continuous DMA Ingestion         ├── RV32EC Bare-Die  │
+ │      └── Core 1: Radix-2 Real FFT (80 Bins)       └── 10x10mm Flexible │
+ │             │                                         Coil & PMU       │
+ │             ├──► [PC817 Optocoupler] (<15ms Feed Hold)                 │
+ │             └──► [Encrypted MicroSD / Local USB Serial Bridge]         │
  └────────────────────────────────────┬───────────────────────────────────┘
                                       │
                                       ▼
@@ -61,10 +78,10 @@ Forge AI V2 merges the world-class execution sandboxing, PaaS hypervisor bypass,
  │  └── 7. Universal Industrial MCP Gateway (SSE & Stdio Transports)      │
  └────────────────────────────────────┬───────────────────────────────────┘
                                       │
-                ┌─────────────────────┴─────────────────────┐
-                ▼                                           ▼
-      [Gemini / Claude / Cursor]                 [Shop Owner WhatsApp]
-      (Real-time Spindle Control)                (Instant Crash Autopsy)
+        ┌─────────────────────────────┼─────────────────────────────┐
+        ▼                             ▼                             ▼
+[Gemini / Claude / Cursor]  [Shop Floor WhatsApp]       [OS-MCP Client Daemons]
+(Real-time Spindle Control)  (Instant Crash Autopsy)    (Android, iOS, Win, Mac, Linux)
 ```
 
 ---
@@ -84,6 +101,26 @@ When connected via SSE (`/sse`) or Gemini Stream (`/gemini`), Forge AI V2 expose
 | `write_file` | **Sandbox** | Write content safely with automated timestamped backup creation (`.bkp`). |
 | `list_directory` | **Sandbox** | Safely explore workspace directories. |
 | `run_shell_command` | **Sandbox** | Execute shell commands strictly restricted by dropped Linux kernel capabilities. |
+
+---
+
+## 📱 Cross-Platform OS-MCP Client Daemons (`clients/`)
+
+Forge AI natively extends to operator and technician hardware across all major operating systems:
+- **Android (`clients/Android/`):** Native Android daemon interfacing with mobile sensors and notifications.
+- **iOS (`clients/iOS/`):** Web-inspect and platform hooks for mobile Apple devices.
+- **Linux (`clients/Linux/`):** Full kernel-level Linux daemon for industrial shop floor terminals and Raspberry Pis.
+- **Windows (`clients/Win/`):** Windows CNC host controller automation (Mach3/Mach4/NcStudio bridge).
+- **macOS (`clients/Mac/`):** Apple Silicon native daemon.
+
+---
+
+## 🔬 Hardware Designs & Bare-Die Silicon (`hardware-designs/`)
+
+Originating from the TrackOn research initiative:
+- **Flexible PCB Blueprints (`hardware-designs/hardware/`):** Complete KiCad project (`TrackOn.kicad_pcb`), Archimedean resonant coil generators, and COMSOL magnetic field simulations (`comsol_coil_sim.java`).
+- **Custom Silicon RTL (`hardware-designs/hardware/rtl/`):** RV32EC bare-die core controllers, OTP eFuse security registers (`efuse_controller.v`), and lithium battery power management units (`pmu_lithium.v`).
+- **Firmware Cryptography (`hardware-designs/firmware/`):** Rotating NIST P-224 Elliptic Curve advertising protocols (`fmn_crypto.c`).
 
 ---
 
