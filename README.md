@@ -1,32 +1,40 @@
-# Forge AI - Autonomous Acoustic Spindle Defense Network
+# Forge AI - Autonomous Acoustic Spindle Defense & Industrial MCP Network
 
 [![License: BSL 1.1](https://img.shields.io/badge/License-BSL%201.1-blue.svg)](LICENSE.md)
 [![Target: ESP32-S3](https://img.shields.io/badge/Platform-ESP32--S3-red.svg)](Edge%20Firmware/)
 [![Architecture: Air--Gapped](https://img.shields.io/badge/Architecture-Air--Gapped%20DSP-emerald.svg)](Edge%20Firmware/)
-[![Status: v1_beta](https://img.shields.io/badge/Release-v1__beta-orange.svg)]()
+[![MCP Server: Industrial](https://img.shields.io/badge/MCP_Server-Industrial%20v2.0-blue.svg)](server.json)
+[![Status: v2_fused](https://img.shields.io/badge/Release-v2__fused-orange.svg)]()
 
-Forge AI is an industrial-grade, air-gapped acoustic telemetry and CNC spindle defense system. It detects tool deflection, chatter resonance, and imminent tool breakage in under **15 milliseconds** using high-speed frequency partitioning on edge silicon.
+Forge AI is an industrial-grade, air-gapped acoustic telemetry, CNC spindle defense, and secure physical-AI execution gateway. It detects tool deflection, chatter resonance, and imminent tool breakage in under **15 milliseconds** using high-speed frequency partitioning on edge silicon.
 
 ---
 
 ## Architecture Overview
 
 ```
- [Spindle Micro-Vibrations]
-             │
-             ▼ (I2S DMA Ping-Pong Ring Buffer, 48 kHz / 24-bit)
-   [ESP32-S3 Dual-Core DSP]
-      ├── Core 0: Continuous I2S DMA Ingestion
-      └── Core 1: Radix-2 Real FFT + 80-Band Partition Accumulator
+ [Spindle Micro-Vibrations & Acoustics]       [13.56 MHz Resonant Flux]
+             │ (48 kHz / 24-bit I2S DMA)                   │
+             ▼                                             ▼
+   [ESP32-S3 Dual-Core DSP Engine]               [TrackOn Custom Silicon]
+      ├── Core 0: Continuous I2S DMA Ingestion      ├── RV32EC Bare-Die Core
+      └── Core 1: Radix-2 Real FFT + 80-Band DSP    └── 10x10mm Flexible Coil
              │
              ├──► [Optocoupler E-Stop] (< 15ms Hardware Feed Hold / Emergency Trip)
-             └──► [Encrypted MicroSD Outbox] (/telemetry/outbox.enc)
+             └──► [Encrypted MicroSD Outbox / Local USB Serial Bridge]
                         │
-                        ▼ (7-Day Sneakernet Swap)
-           [Workstation & Telemetry Bridge]
+                        ▼ (Local Serial Stream / Sneakernet)
+           [Forge AI V2 Core Daemon & Industrial MCP Server]
+              ├── 1. Edge Serial Hardware Bridge (Auto-detects USB ports)
+              ├── 2. Black-Box Autopsy Engine (Offline Store-and-Forward)
+              ├── 3. Multi-Channel Dispatcher (Instant WhatsApp / Telegram Alerts)
+              ├── 4. Military-Grade Execution Sandbox (Dropped Linux Capabilities)
+              └── 5. Universal MCP Server (Exposing 12+ Machine Telemetry & OS Tools)
                         │
-                        ▼
-           [Supabase / DuckDB Telemetry Core] (80-Band Continuous Vector Matrix)
+                        ├──────────────────────────┐
+                        ▼                          ▼
+           [Supabase / DuckDB Telemetry Core]   [AI Agents: Gemini / Claude / Cursor]
+           (80-Band Continuous Vector Matrix)   (Real-Time Spindle Monitoring & Safety Control)
 ```
 
 ---
@@ -42,7 +50,30 @@ Forge AI is an industrial-grade, air-gapped acoustic telemetry and CNC spindle d
 - **Direct Hardware Interception:** Open-collector optocoupler circuit triggered in `< 15ms` for deterministic feed hold before catastrophic bit failure.
 - **Cryptographic 7-Day Sneakernet:** Ed25519 signature verification (`lease.sig`) and monotonic runtime counter enforcement.
 
-### 2. Telemetry Client (`forge_client.py`)
+### 2. Industrial MCP Server (`src/` & `server.json`)
+Native Model Context Protocol gateway allowing AI agents (like Gemini, Claude, Cursor) to monitor spindle harmonics, trigger emergency feed-holds, and run sandboxed diagnostics:
+- **`forge_get_spindle_telemetry`**: Real-time RPM, acoustic RMS dB, peak frequency, and harmonic health.
+- **`forge_trigger_estop`**: Optical feed-hold trigger (<15ms) via PC817 optocoupler.
+- **`forge_reset_estop`**: Re-arm optical sensors after manual operator confirmation.
+- **`forge_get_autopsy_report`**: Rolling 30-second black-box crash recorder logs & spectrograms.
+- **`forge_send_whatsapp_alert`**: Instant high-priority dispatch of autopsies to WhatsApp.
+- **`trackon_scan_devices`** & **`trackon_get_device_telemetry`**: 13.56 MHz resonant flux and BLE tag telemetry.
+- **`os_get_system_info`** & **`os_detect_serial_devices`**: Host platform metrics and attached CNC serial bus scanning.
+- **`read_file`**, **`write_file`**, **`list_directory`**, **`run_shell_command`**: Sandboxed workspace tools with directory traversal protection.
+
+### 3. [Cross-Platform OS Daemons](clients/)
+Native automation daemons interfacing with host platforms across the shop floor:
+- `clients/Linux/`: Industrial workshop terminals & single-board computers (Raspberry Pi).
+- `clients/Win/`: Windows CNC host controller automation (Mach3/Mach4/NcStudio bridge).
+- `clients/Android/` & `clients/iOS/`: Mobile operator and technician telemetry.
+- `clients/Mac/`: Workstation engineering clients.
+
+### 4. [Hardware Designs & Flexible Silicon](hardware-designs/)
+- `hardware-designs/hardware/`: Complete KiCad PCB layout (`TrackOn.kicad_pcb`), Archimedean resonant coil generator, and COMSOL magnetic field simulations.
+- `hardware-designs/hardware/rtl/`: RV32EC bare-die core controllers, OTP eFuse security registers, and lithium PMU.
+- `hardware-designs/firmware/`: Rotating NIST P-224 Elliptic Curve mesh cryptography.
+
+### 5. Telemetry Client (`forge_client.py`)
 - Standard client interface for querying the 80-band acoustic telemetry matrix from cloud/local storage.
 - Zero-leak credential parsing via environment variables.
 
@@ -55,7 +86,13 @@ Forge AI is an industrial-grade, air-gapped acoustic telemetry and CNC spindle d
    cp .env.example .env
    ```
 2. Populate `.env` with your private credentials. **Never commit `.env` or raw keys.**
-3. Query telemetry programmatically:
+3. Run the MCP server and dashboard locally:
+   ```bash
+   npm install
+   npm run build
+   npm start
+   ```
+4. Query telemetry programmatically:
    ```python
    from forge_client import ForgeTelemetryClient
 
@@ -74,7 +111,27 @@ ForgeAI/
 ├── Edge Firmware/
 │   ├── esp_dsp_firmware.cpp     # Production ESP32-S3 DSP & DMA firmware
 │   └── README.md                 # Firmware architecture & timing specifications
+├── src/                          # Fused Industrial MCP Server & Core Daemon
+│   ├── mcp_forge_tools.ts       # 12+ Fused Industrial, Silicon & OS MCP Tools
+│   ├── dashboard.ts             # Web security dashboard & SSE endpoints
+│   ├── stdio.ts                 # Local stdio CLI runner for Cursor & Claude
+│   ├── edge_serial_bridge.ts    # Auto-detects ESP32-S3 USB serial stream
+│   ├── whatsapp_dispatcher.ts   # Offline-first black-box crash dispatcher
+│   └── matrix_bridge.ts         # Multi-channel Mautrix puppet gateway
+├── clients/                      # Cross-Platform OS-MCP Client Daemons
+│   ├── Linux/                   # Industrial shop floor terminal daemon
+│   ├── Win/                     # CNC controller automation bridge (Mach3/NcStudio)
+│   ├── Android/ & iOS/          # Mobile operator daemons
+│   └── Mac/                     # Apple Silicon workstation client
+├── hardware-designs/             # TrackOn Flexible PCB & Custom Silicon
+│   ├── hardware/                # KiCad PCB, Archimedean coils, COMSOL simulations
+│   ├── hardware/rtl/            # RV32EC silicon RTL & lithium PMU
+│   └── firmware/                # NIST P-224 rotating BLE mesh crypto
 ├── forge_client.py               # Enterprise Supabase/telemetry reader client
+├── server.json                   # Official Global MCP Registry Manifest
+├── Dockerfile                    # Kernel-sandboxed container (cap_drop: ALL)
+├── docker-compose.yml            # Multi-container orchestration stack
+├── render.yaml                   # 1-click cloud deployment spec
 ├── .env.example                  # Sanitized environment template (no secrets)
 ├── .gitignore                    # Enterprise gitignore rules
 ├── LICENSE.md                    # Business Source License (BSL 1.1)
