@@ -10,13 +10,16 @@
     "build": "tsc",
     "start": "node dist/dashboard.js",
     "stdio": "node dist/stdio.js",
+    "fastmcp": "tsx src/fastmcp_server.ts",
     "dev": "ts-node-esm src/dashboard.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.1",
     "express": "^5.2.1",
     "express-rate-limit": "^8.7.0",
-    "helmet": "^8.3.0"
+    "fastmcp": "^4.23.7",
+    "helmet": "^8.3.0",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
