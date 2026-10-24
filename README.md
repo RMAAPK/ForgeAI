@@ -124,13 +124,15 @@ Certified via **TITANS of CNC** on multi-axis CAD/CAM and high-feed cutting stan
 
 ---
 
-## 📊 Benchmark Acoustic Telemetry & Anomaly Profiles
+## 📊 Benchmark Acoustic Telemetry & Anomaly Profiles (Illustrative Sample)
 
-To calibrate the ESP32-S3 Radix-2 Real FFT pipeline across variable machine loads, Forge AI validates incoming I2S DMA buffers against standard industrial chatter and bearing failure signatures. 
+> [!WARNING]
+> **Data Provenance & Non-Verification Disclaimer**
+> The telemetry values and anomaly profiles presented in this section and in `/benchmarks` are **unverified illustrative approximations** synthesized from publicly available educational media (such as YouTube machining audio analysis and public shop floor demonstrations). They are included strictly as structural reference samples to demonstrate how the 80-band frequency partitioning schema is formatted, parsed, and ingested by the pipeline. These figures must not be treated as certified sensor ground truth or laboratory calibration data.
 
 Raw acoustic streams are windowed (Blackman-Harris) and compressed into an 80-band normalized energy array (`band_1` to `band_80`), driving deterministic severity scoring and hardware interrupt thresholds.
 
-### Calibrated Anomaly Vectors (Excerpt)
+### Illustrative Anomaly Vectors (Schema Reference)
 
 | ID | Case / Failure Mode | State | Severity | Primary Harmonic Concentration |
 |---|---|---|---|---|
