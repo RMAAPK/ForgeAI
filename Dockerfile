@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:22-alpine
 
 # Alpine's node image already has a non-root 'node' user
 

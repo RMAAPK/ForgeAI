@@ -123,7 +123,11 @@ server.addTool({
     const container = datEngine.packContainer({
       machineId: args.machineId,
       chipMacSha256: args.chipMacSha256,
-      authorizedCuttingSeconds: args.cuttingSecondsToAuthorize,
+      preAuthCuttingSeconds: args.cuttingSecondsToAuthorize,
+      consumedCuttingSeconds: 0,
+      anomalyWeights80Band: DataDatEngine.generateDefault80BandWeights(),
+      timestamp: Date.now(),
+      nonce: Math.floor(Math.random() * 1000000),
     });
     return JSON.stringify(container, null, 2);
   },
@@ -138,7 +142,8 @@ server.addTool({
   }),
   execute: async (args) => {
     const datEngine = new DataDatEngine();
-    const result = datEngine.unpackContainer(args.containerJson, args.chipMacSha256);
+    const parsedContainer = JSON.parse(args.containerJson);
+    const result = datEngine.unpackContainer(parsedContainer, args.chipMacSha256);
     return JSON.stringify(result, null, 2);
   },
 });
