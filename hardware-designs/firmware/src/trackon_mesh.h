@@ -66,3 +66,4 @@ void trackon_mesh_build_pdu(const trackon_mesh_state_t* state, uint16_t group_ds
 void trackon_mesh_sleep_poll(trackon_mesh_state_t* state);
 
 #endif // RMAA_TRACKON_BLE_MESH_H
+

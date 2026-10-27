@@ -43,3 +43,4 @@ void trackon_mesh_build_pdu(const trackon_mesh_state_t* state, uint16_t group_ds
     // Compute simple 32-bit integrity check (Mocked for RV32EC bare-die hardware accelerator)
     out_pdu->net_mic = 0x5A5A5A5A ^ (uint32_t)out_pdu->src_addr ^ (uint32_t)out_pdu->dst_addr;
 }
+
