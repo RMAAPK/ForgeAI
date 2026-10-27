@@ -13,40 +13,29 @@
 Maintained by **RMAA HOLDINGS** • Licensed under **BSL 1.1**
 
 [![License: BSL 1.1](https://img.shields.io/badge/License-BSL%201.1-blue.svg)](LICENSE.md)
-[![Platform: ESP32-S3](https://img.shields.io/badge/Platform-ESP32--S3-red.svg)](Edge%20Firmware/)
-[![Architecture: Bare--Metal DSP](https://img.shields.io/badge/Architecture-Bare--Metal%20DSP-emerald.svg)](Edge%20Firmware/)
-[![Backend: Supabase](https://img.shields.io/badge/Backend-Supabase%20Postgres-3ECF8E.svg)](hardware-designs/backend/supabase/)
+[![Platform: ESP32-S3](https://img.shields.io/badge/Platform-ESP32--S3-red.svg)](esp_dsp_firmware.cpp)
+[![Architecture: Bare--Metal DSP](https://img.shields.io/badge/Architecture-Bare--Metal%20DSP-emerald.svg)](esp_dsp_firmware.cpp)
 
-Forge AI is an industrial-grade bare-metal edge hardware sentinel designed for high-speed CNC spindle protection, acoustic load classification, and deterministic tool breakage defense. 
+Forge AI is an industrial-grade bare-metal edge hardware defense system designed for high-speed CNC spindle protection, acoustic load classification, and deterministic tool breakage defense.
 
 Operating directly on edge silicon (ESP32-S3 @ 240 MHz with hardware vector extensions), it continuously samples spindle micro-acoustics at 48 kHz / 24-bit, executes Radix-2 Real FFTs, partitions the spectrum into 80 physical frequency bands, and trips an optical PC817 feed hold circuit in **under 15 milliseconds** upon detecting severe chatter resonance or imminent tool deflection.
 
 ---
 
-## 🏛️ System Architecture
+## 🏛️ Hardware Interception Pipeline
 
 ```
  ┌────────────────────────────────────────────────────────────────────────┐
  │                    PHYSICAL HARDWARE & SENSOR LAYER                    │
  │                                                                        │
- │  [Spindle Micro-Acoustics & Vibration]     [Tool / Part / Spindle]    │
+ │  [Spindle Micro-Acoustics & Vibration]     [Tool / Spindle Gantry]    │
  │             │ (I2S DMA 48 kHz / 24-bit)                 │              │
  │             ▼                                           ▼              │
  │   [ESP32-S3 Dual-Core DSP Engine]              [Hardware Interception] │
  │      ├── Core 0: Zero-Copy Ping-Pong DMA          ├── PC817 Optocoupler │
  │      └── Core 1: Radix-2 Real FFT (80 Bins)       └── < 15ms Feed Hold │
  │             │                                                          │
- │             ├──► Hardware Feed Hold Interrupt (GPIO E-Stop)            │
- │             └──► USB Serial / Private Sync Telemetry                   │
- └────────────────────────────────────┬───────────────────────────────────┘
-                                      │
-                                      ▼
- ┌────────────────────────────────────────────────────────────────────────┐
- │                   PRIVATE SUPABASE STORAGE & POSTGRES                  │
- │                                                                        │
- │  • edge_devices: Registered ESP32-S3 hardware MAC / eFuse IDs          │
- │  • acoustic_telemetry: 80-band partitioned acoustic energy arrays      │
- │  • incident_autopsies: Instant snapshot logs on optical E-stop trip    │
+ │             └──► Hardware Feed Hold Interrupt (GPIO E-Stop)            │
  └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -70,11 +59,10 @@ When high-frequency chatter harmonics exceed calibrated energy ratios relative t
 
 ## 📁 Repository Manifest
 
-- **[`Edge Firmware/`](Edge%20Firmware/):** Bare-metal C++ firmware for the ESP32-S3 running FreeRTOS with hardware-accelerated ESP-DSP routines (`esp_dsp_firmware.cpp`).
-- **[`hardware-designs/`](hardware-designs/):** KiCad PCB schematics, flexible substrates, and PMU designs.
-- **[`hardware-designs/backend/supabase/`](hardware-designs/backend/supabase/):** Private PostgreSQL migrations for telemetry ingestion, 80-band array storage, and E-stop autopsy logs.
+- **[`esp_dsp_firmware.cpp`](esp_dsp_firmware.cpp):** Bare-metal C++ firmware for the ESP32-S3 running FreeRTOS with hardware-accelerated ESP-DSP routines (I2S DMA, Blackman-Harris windowing, Radix-2 FFT, 80-band accumulator).
 - **[`benchmarks/`](benchmarks/):** Illustrative 80-band telemetry reference datasets.
 - **[`credentials/`](credentials/):** Physical CNC machining certifications (TITANS of CNC multi-axis CAD/CAM).
+- **[`LICENSE.md`](LICENSE.md):** Business Source License 1.1 terms.
 
 ---
 
