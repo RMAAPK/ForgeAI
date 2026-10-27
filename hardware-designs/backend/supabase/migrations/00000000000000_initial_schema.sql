@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS edge_devices (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     device_uid TEXT UNIQUE NOT NULL, -- Hardware MAC / eFuse SHA256
     name TEXT NOT NULL,
-    firmware_version TEXT NOT NULL DEFAULT 'v0-beta',
+    firmware_revision TEXT NOT NULL DEFAULT 'revA',
     status TEXT NOT NULL DEFAULT 'OFFLINE', -- 'ONLINE', 'DISCONNECTED', 'ALERT'
     created_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now()),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now())

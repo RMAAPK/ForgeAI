@@ -8,14 +8,13 @@
 
 ---
 
-# Forge AI (v0-beta): Edge Acoustic Spindle Defense & Hardware Sentinel
+# Forge AI: Edge Acoustic Spindle Defense & Hardware Sentinel
 ### Pure Bare-Metal DSP Silicon • 80-Band Frequency Partitioning • Microsecond Optical E-Stop
 Maintained by **RMAA HOLDINGS** • Licensed under **BSL 1.1**
 
 [![License: BSL 1.1](https://img.shields.io/badge/License-BSL%201.1-blue.svg)](LICENSE.md)
 [![Platform: ESP32-S3](https://img.shields.io/badge/Platform-ESP32--S3-red.svg)](Edge%20Firmware/)
 [![Architecture: Bare--Metal DSP](https://img.shields.io/badge/Architecture-Bare--Metal%20DSP-emerald.svg)](Edge%20Firmware/)
-[![Release: v0-beta](https://img.shields.io/badge/Release-v0--beta-orange.svg)]()
 [![Backend: Supabase](https://img.shields.io/badge/Backend-Supabase%20Postgres-3ECF8E.svg)](hardware-designs/backend/supabase/)
 
 Forge AI is an industrial-grade bare-metal edge hardware sentinel designed for high-speed CNC spindle protection, acoustic load classification, and deterministic tool breakage defense. 
