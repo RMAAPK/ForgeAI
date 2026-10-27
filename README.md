@@ -60,9 +60,30 @@ When high-frequency chatter harmonics exceed calibrated energy ratios relative t
 ## 📁 Repository Manifest
 
 - **[`esp_dsp_firmware.cpp`](esp_dsp_firmware.cpp):** Bare-metal C++ firmware for the ESP32-S3 running FreeRTOS with hardware-accelerated ESP-DSP routines (I2S DMA, Blackman-Harris windowing, Radix-2 FFT, 80-band accumulator).
-- **[`benchmarks/`](benchmarks/):** Illustrative 80-band telemetry reference datasets.
+- **[`benchmarks/`](benchmarks/):** Reproducible C++17 desktop simulation harness ([`bench_dsp.cpp`](benchmarks/bench_dsp.cpp)), automated test runner ([`run_benchmark.sh`](benchmarks/run_benchmark.sh)), and full empirical execution logs ([`desktop_dsp_benchmark_linux.txt`](benchmarks/desktop_dsp_benchmark_linux.txt)).
 - **[`credentials/`](credentials/):** Physical CNC machining certifications (TITANS of CNC multi-axis CAD/CAM).
 - **[`LICENSE.md`](LICENSE.md):** Business Source License 1.1 terms.
+
+---
+
+## ⚡ Empirical Desktop DSP Simulation & Verification
+
+The mathematical signal pipeline is validated on real 48 kHz / 24-bit acoustic waveforms via a self-contained C++17 simulation harness (`benchmarks/bench_dsp.cpp`):
+
+```bash
+# Run the automated benchmark suite
+./benchmarks/run_benchmark.sh
+```
+
+### Verified Benchmark Execution Metrics
+- **Ingestion**: 48,000 Hz / Mono PCM in 1024-sample blocks (21.33 ms frame resolution).
+- **Window**: 4-term Blackman-Harris ($>92\text{ dB}$ side-lobe rejection).
+- **Transform**: Radix-2 in-place Cooley-Tukey FFT partitioned across 80 physical frequency bands.
+- **Normal Spindle Cut** (`normal_spindle_cut.wav`): **0 false trips** across 140 frames.
+- **Resonant Chatter Cut** (`severe_chatter_cut.wav`): **100 hardware trips fired** with instant PC817 trigger detection.
+- **Average DSP Latency**: **~31.35 μs per frame** (**0.031 ms**), beating the `< 10.0 ms` target with **9.97 ms of margin/headroom**.
+
+> Full raw benchmark execution trace available in [`benchmarks/desktop_dsp_benchmark_linux.txt`](benchmarks/desktop_dsp_benchmark_linux.txt).
 
 ---
 
