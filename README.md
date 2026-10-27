@@ -8,7 +8,7 @@
 
 ---
 
-# Forge AI: Edge Acoustic Spindle Defense & Hardware Sentinel
+# Forge AI - Spindle Defense System for CNCs
 ### Pure Bare-Metal DSP Silicon • 80-Band Frequency Partitioning • Microsecond Optical E-Stop
 Maintained by **RMAA HOLDINGS** • Licensed under **BSL 1.1**
 
