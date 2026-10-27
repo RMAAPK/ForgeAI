@@ -47,3 +47,4 @@ echo "==========================================================================
 
 # Cleanup transient binaries
 rm -f benchmarks/gen_test_audio benchmarks/bench_dsp benchmarks/baseline_run.log
+
