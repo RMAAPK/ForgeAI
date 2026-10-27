@@ -18,7 +18,7 @@ Maintained by **RMAA HOLDINGS** • Licensed under **BSL 1.1**
 
 Forge AI is an industrial-grade bare-metal edge hardware defense system designed for high-speed CNC spindle protection, acoustic load classification, and deterministic tool breakage defense.
 
-Operating directly on edge silicon (ESP32-S3 @ 240 MHz with hardware vector extensions), it continuously samples spindle micro-acoustics at 48 kHz / 24-bit, executes Radix-2 Real FFTs, partitions the spectrum into 80 physical frequency bands, and trips an optical PC817 feed hold circuit in **under 15 milliseconds** upon detecting severe chatter resonance or imminent tool deflection.
+Operating directly on edge silicon (ESP32-S3 @ 240 MHz with hardware vector extensions), it continuously samples spindle micro-acoustics at 48 kHz / 24-bit, executes Radix-2 Real FFTs, partitions the spectrum into 80 physical frequency bands, and trips an optical PC817 feed hold circuit in **under 10 milliseconds** upon detecting severe chatter resonance or imminent tool deflection.
 
 ---
 
@@ -33,7 +33,7 @@ Operating directly on edge silicon (ESP32-S3 @ 240 MHz with hardware vector exte
  │             ▼                                           ▼              │
  │   [ESP32-S3 Dual-Core DSP Engine]              [Hardware Interception] │
  │      ├── Core 0: Zero-Copy Ping-Pong DMA          ├── PC817 Optocoupler │
- │      └── Core 1: Radix-2 Real FFT (80 Bins)       └── < 15ms Feed Hold │
+ │      └── Core 1: Radix-2 Real FFT (80 Bins)       └── < 10ms Feed Hold │
  │             │                                                          │
  │             └──► Hardware Feed Hold Interrupt (GPIO E-Stop)            │
  └────────────────────────────────────────────────────────────────────────┘
@@ -53,7 +53,7 @@ Raw audio ingested via I2S DMA is windowed with Blackman-Harris and transformed 
    - **70 linear bins** (~278.57 Hz per bin).
    - Isolates regenerative chatter squeal, cutter tooth engagement frequencies, micro-chipping acoustic emission, and imminent carbide fracture.
 
-When high-frequency chatter harmonics exceed calibrated energy ratios relative to baseline cutting power, Core 1 drives a dedicated GPIO pin high in **< 15ms**, triggering a PC817 optocoupler to halt machine axis feeds instantly.
+When high-frequency chatter harmonics exceed calibrated energy ratios relative to baseline cutting power, Core 1 drives a dedicated GPIO pin high in **< 10ms**, triggering a PC817 optocoupler to halt machine axis feeds instantly.
 
 ---
 
