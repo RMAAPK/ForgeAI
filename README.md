@@ -60,7 +60,8 @@ When high-frequency chatter harmonics exceed calibrated energy ratios relative t
 ## 📁 Repository Manifest
 
 - **[`esp_dsp_firmware.cpp`](esp_dsp_firmware.cpp):** Bare-metal C++ firmware for the ESP32-S3 running FreeRTOS with hardware-accelerated ESP-DSP routines (I2S DMA, Blackman-Harris windowing, Radix-2 FFT, 80-band accumulator).
-- **[`hardware/BOM_REV1.0.md`](hardware/BOM_REV1.0.md):** Engineering Release Rev 1.0 hardware bench prototype specification, ~$10 BOM, electrical pinout, and sub-10ms optical interception timing budget.
+- **[`hardware/BOM_REV1.0.md`](hardware/BOM_REV1.0.md):** Engineering Release Rev 1.0 official hardware bench prototype BOM (Rs. 3,000–3,400 PKR / ~$10 USD), complete procurement checklist, pinout schematics, and bench assembly guide.
+- **[`hardware/FORGE_AI_HARDWARE_PROTOTYPE_REV1.0.pdf`](hardware/FORGE_AI_HARDWARE_PROTOTYPE_REV1.0.pdf):** Official Engineering Release Rev 1.0 PDF document authored by Ali CNC Engineering.
 - **[`benchmarks/`](benchmarks/):** Reproducible C++17 desktop simulation harness ([`bench_dsp.cpp`](benchmarks/bench_dsp.cpp)), automated test runner ([`run_benchmark.sh`](benchmarks/run_benchmark.sh)), and full empirical execution logs ([`desktop_dsp_benchmark_linux.txt`](benchmarks/desktop_dsp_benchmark_linux.txt)).
 - **[`credentials/`](credentials/):** Physical CNC machining certifications (TITANS of CNC multi-axis CAD/CAM).
 - **[`LICENSE.md`](LICENSE.md):** Business Source License 1.1 terms.
@@ -69,15 +70,15 @@ When high-frequency chatter harmonics exceed calibrated energy ratios relative t
 
 ## 🛠️ Hardware Prototype & Dual-Phase Validation
 
-The Forge AI hardware stack operates under **Engineering Release • Rev 1.0**:
-- **ESP32-S3 DevKit (N16R8)**: Dual-core LX7 @ 240 MHz running 48 kHz I2S DMA on Core 0 and Radix-2 Real FFT + 80-band accumulator on Core 1.
-- **INMP441 Digital MEMS Mic**: Bottom-ported 24-bit PCM mono acoustic sensor capturing spindle vibrations directly on the machine chassis.
-- **PC817 Optocoupler Breakout**: Solid-state 5kV galvanically isolated optical switch triggering machine feed-hold in `< 10ms`.
-- Complete BOM and wiring schematic available in [`hardware/BOM_REV1.0.md`](hardware/BOM_REV1.0.md).
+The Forge AI hardware stack operates under **Engineering Release • Rev 1.0** (documented in [`hardware/BOM_REV1.0.md`](hardware/BOM_REV1.0.md) & [`FORGE_AI_HARDWARE_PROTOTYPE_REV1.0.pdf`](hardware/FORGE_AI_HARDWARE_PROTOTYPE_REV1.0.pdf)):
+- **ESP32-S3 DevKit (WROOM-1 / N16R8)**: Dual-core LX7 @ 240 MHz (16MB Flash, 8MB PSRAM) running 48 kHz I2S DMA on Core 0 and Radix-2 Real FFT + 80-band accumulator on Core 1.
+- **INMP441 Digital MEMS Microphone**: Omnidirectional bottom-ported 24-bit PCM mono acoustic sensor (61 dBA SNR) capturing spindle vibrations directly on the machine chassis.
+- **PC817 Optocoupler Breakout**: Solid-state 5kV galvanically isolated optical switch triggering machine feed-hold in `< 2.0 ms` (total loop `< 10 ms`).
+- **Turnkey Bench Harness**: MB-102 breadboard layout, 330Ω current-limiting resistors, 9V isolated secondary test circuit, and visual trip indicator LEDs (Total cost: **Rs. 3,000 – 3,400 PKR**).
 
 ### Dual-Phase Execution Roadmap
 1. **Phase 1 (Active / Mathematical Validation)**: Desktop C++ DSP simulation harness proving Blackman-Harris windowing, Radix-2 FFT, 80-band spectral partitioning, and microsecond latency execution against real 48 kHz / 24-bit PCM waveforms.
-2. **Phase 2 (Physical Silicon Validation)**: Bench assembly flashing [`esp_dsp_firmware.cpp`](esp_dsp_firmware.cpp) onto the Rev 1.0 hardware harness to capture live GPIO optical oscilloscope trigger traces under real cutting chatter.
+2. **Phase 2 (Physical Silicon Validation)**: Bench assembly flashing [`esp_dsp_firmware.cpp`](esp_dsp_firmware.cpp) onto the Rev 1.0 hardware harness per College Road procurement to capture live GPIO optical oscilloscope trigger traces under real cutting chatter.
 
 ---
 
